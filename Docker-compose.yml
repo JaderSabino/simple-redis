@@ -9,6 +9,8 @@ services:
       - simple-redis
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - 8090:8090
 
 networks:
   simple-redis:
