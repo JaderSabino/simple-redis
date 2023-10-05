@@ -11,6 +11,21 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
     ports:
       - 8090:8090
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123
+      - MYSQL_DATABASE=simple-redis
+    networks:
+      - simple-redis
+    volumes:
+      - volume-simple-redis:/var/lib/mysql
 
 networks:
   simple-redis:
+
+volumes:
+  volume-simple-redis:
