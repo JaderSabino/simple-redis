@@ -18,7 +18,7 @@ public class PokemonController {
     @PostMapping
     public ResponseEntity<PokemonDTO> cadastrarPokemon(@RequestBody PokemonDTO pokemonDto) {
         PokemonDTO pokemonDTOReturn = pokemonService.cadastrarPokemon(pokemonDto);
-        return ResponseEntity.ok(pokemonDto);
+        return ResponseEntity.ok(pokemonDTOReturn);
     }
 
     @GetMapping("/{id}")

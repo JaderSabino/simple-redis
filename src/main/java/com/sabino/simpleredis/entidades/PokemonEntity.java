@@ -1,21 +1,27 @@
-package com.sabino.simpleredis.dto;
+package com.sabino.simpleredis.entidades;
 
-import java.io.Serializable;
+import jakarta.persistence.*;
 
-public class PokemonDTO {
+@Entity
+@Table(name = "pokemon")
+public class PokemonEntity{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column
     private String nome;
+    @Column
     private String tipo;
 
-    public PokemonDTO() {}
+    public PokemonEntity() {}
 
-    public PokemonDTO(String nome, String tipo) {
+    public PokemonEntity(String nome, String tipo) {
         this.nome = nome;
         this.tipo = tipo;
     }
 
-    public PokemonDTO(Integer id, String nome, String tipo) {
+    public PokemonEntity(Integer id, String nome, String tipo) {
         this(nome, tipo);
         this.id = id;
     }
