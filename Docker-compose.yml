@@ -3,6 +3,7 @@ version: "3.8"
 services:
 
   app:
+    container_name: app
     build:
       context: .
     networks:
@@ -13,9 +14,11 @@ services:
       - 8090:8090
     depends_on:
       - mysqldb
+      - redis
 
   mysqldb:
-    image: mysql
+    container_name: mysqldb
+    image: mysql:8.1.0
     environment:
       - MYSQL_ROOT_PASSWORD=root123
       - MYSQL_DATABASE=simple-redis
@@ -24,8 +27,33 @@ services:
     volumes:
       - volume-simple-redis:/var/lib/mysql
 
+  redis:
+    container_name: redis
+    hostname: redis
+    image: redis:7.0
+    command: redis-server --protected-mode no
+    networks:
+      - simple-redis
+    depends_on:
+      - mysqldb
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 6379:6379
+
+  redis-gui:
+    container_name: redis-gui
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - 8081:8081
+    networks:
+      - simple-redis
+
 networks:
   simple-redis:
+    name: simple-redis
 
 volumes:
   volume-simple-redis:

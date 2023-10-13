@@ -1,8 +1,11 @@
 package com.sabino.simpleredis.dto;
 
+import org.springframework.data.redis.core.RedisHash;
+
 import java.io.Serializable;
 
-public class PokemonDTO {
+@RedisHash
+public class PokemonDTO implements Serializable {
 
     private Integer id;
     private String nome;
